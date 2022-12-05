@@ -1,6 +1,7 @@
 package com.oyrain.gulimall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -29,6 +30,17 @@ import com.oyrain.gulimall.product.service.CategoryService;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    /**
+     * 三级分类
+     * 查询所有分类以及子分类，以树形结构组装起来
+     * @return
+     */
+    @RequestMapping("/list/tree")
+    public R list() {
+        List<CategoryEntity> categoryEntities = categoryService.listWithTree();
+        return R.ok().put("data",categoryEntities);
+    }
 
     /**
      * 列表
